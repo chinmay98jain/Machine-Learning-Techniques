@@ -1,0 +1,12 @@
+library(rpart)
+library(rpart.plot)
+library(caret)
+s<-sample(150,100)
+iris_train<-iris[s,]
+iris_test<-iris[-s,]
+dtm<-rpart(Species~.,iris_train,method="class")
+rpart.plot(dtm)
+p<-predict(dtm,iris_test,type="class")
+lp<-iris_test[,5]
+lp<-as.factor(lp)
+confusionMatrix(as.factor(iris_test[,5]),iris_test$Species)
